@@ -5,9 +5,29 @@ import React, {useCallback, useEffect, useState} from "react";
 import Card from "../../components/Card";
 import SearchCard from "../../components/SearchCard";
 
+interface Pokemons {
+    name: string;
+    url: string;
+}
+
+interface ISprites {
+    other: {
+        'official-artwork': {
+            front_default: string;
+        }
+    }
+}
+
+interface Pokemon {
+    name: string;
+    sprites: ISprites;
+    height: number;
+    weight: number;
+}
+
 export default function TabOneScreen() {
-    const [pokemons, setPokemons] = useState([]);
-    const [pokemon, setPokemon] = useState(null);
+    const [pokemons, setPokemons] = useState<Pokemons[]>([]);
+    const [pokemon, setPokemon] = useState<Pokemon | null>(null);
     const [numberPoke, setNumberPoke] = useState(null);
 
 
@@ -16,7 +36,9 @@ export default function TabOneScreen() {
     }, [])
 
     useEffect(() => {
-        getPokemonByNumber(numberPoke);
+        if (numberPoke) {
+            getPokemonByNumber(numberPoke);
+        }
     }, [numberPoke])
 
     async function getPokemons() {
@@ -41,7 +63,7 @@ export default function TabOneScreen() {
         }
     }
 
-    async function getPokemonByNumber(number) {
+    async function getPokemonByNumber(number: number) {
         try {
             const poke = await fetch(`https://pokeapi.co/api/v2/pokemon/${number}`);
 
