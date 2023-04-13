@@ -1,7 +1,7 @@
 import {Button, StyleSheet, TextInput} from 'react-native';
 
 import {Text, View} from '../../components/Themed';
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import Card from "../../components/Card";
 import SearchCard from "../../components/SearchCard";
 
